@@ -1,0 +1,118 @@
+//Form 1
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Hentai_Hub
+{
+    public partial class Form2 : Form
+    {
+        public Form2()
+        {
+            InitializeComponent();
+            this.Text = "";
+        }
+
+        private void Form2_MouseDown(object sender, MouseEventArgs e)
+        {
+            lastPoint = new Point(e.X, e.Y);
+        }
+        Point lastPoint;
+        private void Form2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left += e.X - lastPoint.X;
+                this.Top += e.Y - lastPoint.Y;
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (rtbx1.SelectedRtf != "")
+            {
+                String texto = rtbx1.SelectedText;
+                texto.Replace(' ', ' ');
+                System.Diagnostics.Process.Start("https://hitomi.la/search.html?" + texto);
+            }
+
+            
+        }
+        
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (rtbx1.SelectedRtf != "")
+            {
+                String texto = rtbx1.SelectedText;
+                texto.Replace(' ', ' ');
+                System.Diagnostics.Process.Start("https://nhentai.to/g/" + texto);
+
+            }
+            else
+            {
+                MessageBox.Show("Selecione um texto primeiro");
+            }
+
+
+
+            System.Diagnostics.Process.Start("https://nhentai.to");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (rtbx1.SelectedRtf != "")
+            {
+                String texto = rtbx1.SelectedText;
+                texto.Replace(' ', ' ');
+                System.Diagnostics.Process.Start("https://superhentaisvip.net/?s=" + texto );
+            }
+            else
+            {
+                MessageBox.Show("Selecione um texto primeiro");
+            }
+             
+
+            
+             
+
+
+            
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();//Clear Items in the LuaScriptList
+            Functions.PopulateListBox(listBox1, "./area51", "*.txt");
+            Functions.PopulateListBox(listBox1, "./area51", "*.lua");
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            rtbx1.Text = File.ReadAllText($"./area51/{listBox1.SelectedItem}");
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
